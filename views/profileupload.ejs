@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full min-h-screen bg-zinc-900 text-white">
+        <h3 class="text-3xl mb-5">Upload profile picture</h3>
+        <form action="/upload" method="post" autocomplete="off" enctype="multipart/form-data"> 
+            <!-- Multers sirf unhi data ko process krta h jinka enctype yehi hota h -->
+            <input type="file" name="image">
+            <input class="px-5 py-2 rounded-md bg-blue-500" type="submit" value="Upload file">
+        </form>
+    </div>
+</body>
+</html>
