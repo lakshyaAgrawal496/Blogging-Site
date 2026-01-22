@@ -1,0 +1,351 @@
+/* =======================
+   Admin Page General
+======================= */
+.admin-wrapper {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.admin-content {
+  position: relative;
+  z-index: 10; /* content above map background */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px 50px 20px;
+  background: rgba(0, 0, 0, 0.55); /* semi-transparent overlay */
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+}
+
+/* =======================
+   Navbar
+======================= */
+.admin-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 152, 0, 0.85);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+
+.admin-logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.logout-btn {
+  background: white;
+  color: #ff9800;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+/* =======================
+   Dashboard Title & Subtitle
+======================= */
+.admin-title {
+  font-size: 2.2rem;
+  color: #ff9800;
+  text-align: center;
+  margin-bottom: 10px;
+  animation: fadeInDown 1s ease;
+}
+
+.admin-subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #eee;
+  animation: fadeIn 1s ease 0.3s forwards;
+  opacity: 0;
+}
+
+/* =======================
+   Stats Cards
+======================= */
+.admin-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 25px 20px;
+  border-radius: 12px;
+  width: 180px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+}
+
+.stat-card h3 {
+  color: #ff9800;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.stat-card p {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ff9800;
+  animation: countUp 1s ease;
+}
+
+/* =======================
+   View Toggle Buttons
+======================= */
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.view-toggle button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 152, 0, 0.3);
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.view-toggle button.active,
+.view-toggle button:hover {
+  background: #ff9800;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* =======================
+   Filters
+======================= */
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+  animation: fadeIn 1s ease 0.5s forwards;
+  opacity: 0;
+}
+
+.filters input,
+.filters select,
+.filters .reset-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+  border-color: #ff9800;
+}
+
+.filters .reset-btn {
+  background: #ff9800;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.filters .reset-btn:hover {
+  background: #e68900;
+  transform: scale(1.05);
+}
+
+/* =======================
+   Reports Grid & Cards
+======================= */
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.report-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 1s ease forwards;
+  position: relative;
+}
+
+.report-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.report-category-icon {
+  font-size: 1.5rem;
+}
+
+.report-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ff9800;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.status.pending { background: #f44336; }
+.status.in\ progress { background: #ff9800; }
+.status.resolved { background: #4caf50; }
+
+.report-description {
+  margin-bottom: 12px;
+  color: #eee;
+}
+
+.report-meta {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+/* =======================
+   Report Actions
+======================= */
+.report-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.report-actions input,
+.report-actions select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.save-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #ff9800;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+  background: #e68900;
+  transform: scale(1.05);
+}
+
+/* =======================
+   No Results Message
+======================= */
+.no-results {
+  text-align: center;
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-top: 40px;
+}
+
+/* =======================
+   Animations
+======================= */
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-20px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0;}
+  100% { opacity: 1;}
+}
+
+@keyframes countUp {
+  0% { transform: translateY(-10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Pulse for new reports */
+.report-card.new-report {
+  animation: pulseNew 1s ease-in-out;
+}
+
+@keyframes pulseNew {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(255,152,0,0.7); }
+  50% { transform: scale(1.02); box-shadow: 0 0 15px rgba(255,152,0,0.7); }
+  100% { transform: scale(1); box-shadow: 0 0 0 rgba(255,152,0,0); }
+}
+
+/* =======================
+   Responsive
+======================= */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin-stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+}

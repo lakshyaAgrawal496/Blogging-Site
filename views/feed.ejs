@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-zinc-900 text-white">
+    <!-- Navbar -->
+    <nav class="w-full border-b border-zinc-800 bg-zinc-950/70 backdrop-blur">
+      <div
+        class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between"
+      >
+        <a href="/feed" class="text-xl font-semibold">Nagar Mitra</a>
+        <div class="flex items-center gap-3">
+          <% if (currentUserId) { %>
+          <a href="/profile" class="px-3 py-1.5 rounded-md bg-zinc-800 text-sm"
+            >Profile</a
+          >
+          <a href="/logout" class="px-3 py-1.5 rounded-md bg-red-500 text-sm"
+            >Logout</a
+          >
+          <% } else { %>
+          
+          <a href="/" onclick="location.href='/index.ejs'" class="hidden"></a>
+          <a href="/" class="hidden"></a>
+          <a
+            href="/register"
+            class="px-3 py-1.5 rounded-md bg-blue-600 text-sm"
+            onclick="location.href='/'"
+            >Register</a
+          >
+          <a href="/login" class="px-3 py-1.5 rounded-md bg-green-600 text-sm"
+            >Login</a
+          >
+          <% } %>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Layout -->
+    <div
+      class="max-w-6xl mx-auto px-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-6"
+    >
+      <!-- Feed column -->
+      <div class="md:col-span-2 space-y-6">
+        <% posts.forEach(function(post){ %>
+
+          <div class="p-4 bg-zinc-800 rounded-md border border-zinc-700 <%= post.isReport ? 'border-yellow-500/30 bg-zinc-800/80' : '' %>">
+          <div class="flex items-center justify-between">
+            <h4 class="text-blue-500 mb-2">
+              @<%= post.user ? post.user.anonId : 'Anonymous' %>
+              <% if (post.isReport) { %>
+              <span class="ml-2 px-2 py-1 bg-yellow-500 text-black text-xs rounded-full font-medium">REPORT</span>
+              <% } %>
+            </h4>
+            <% if (post.isReport) { %>
+            <span class="px-2 py-1 rounded text-xs
+              <%= post.reportStatus === 'problemIssued' ? 'bg-teal-900 text-teal-300' : 
+                  post.reportStatus === 'pending' ? 'bg-orange-900 text-orange-300' : 
+                  'bg-green-900 text-green-300' %>">
+              <%= post.reportStatus === 'problemIssued' ? 'Issued' : 
+                  post.reportStatus === 'pending' ? 'Pending' : 'Resolved' %>
+            </span>
+            <% } %>
+          </div>
+          
+          <% if (post.isReport) { %>
+          <div class="mb-3 p-3 bg-yellow-500/10 rounded-md border border-yellow-500/20">
+            <h5 class="font-semibold text-yellow-300 mb-1"><%= post.reportTitle %></h5>
+            <div class="text-sm text-zinc-300">
+              <span class="text-zinc-400">📍</span> <%= post.reportLocation %> | 
+              <span class="text-zinc-400">🏷️</span> <%= post.reportCategory %>
+            </div>
+          </div>
+          <% } %>
+          
+          <p class="mb-2 whitespace-pre-line"><%= post.content %></p>
+          <% if (post.mediaType === "image" && post.media) { %>
+          <img
+            src="/images/uploads/<%= post.media %>"
+            class="rounded-md mb-2"
+          />
+          <% } else if (post.mediaType === "video" && post.media) { %>
+          <video controls class="rounded-md mb-2">
+            <source src="/images/uploads/<%= post.media %>" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+          <% } %>
+          <div class="flex items-center gap-6 mt-2">
+            <small class="text-zinc-400"><%= post.likes.length %> likes</small>
+            <% if (currentUserId) { %>
+            <a href="/like/<%= post._id %>" class="text-blue-600">
+              <%= post.likes.indexOf(currentUserId) === -1 ? "Like" : "Unlike"
+              %>
+            </a>
+            <% } else { %>
+            <a href="/login" class="text-blue-600">Login to like</a>
+            <% } %>
+            <% if (post.isReport) { %>
+            <a href="/post/<%= post._id %>" class="text-yellow-400 hover:text-yellow-300">View Report</a>
+            <% } %>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <!-- Right panel -->
+      <aside class="space-y-4">
+        <div class="p-4 bg-zinc-800 rounded-md border border-zinc-700">
+          <h3 class="text-lg mb-2">Have an issue?</h3>
+          <p class="text-sm text-zinc-400 mb-3">
+            Register a complaint and our team will review it.
+          </p>
+          <% if (currentUserId) { %>
+          <a
+            href="/create-report"
+            class="px-3 py-2 bg-yellow-500 text-black rounded-md inline-block text-sm"
+            >Register a complain</a
+          >
+          <% } else { %>
+          <a
+            href="/login"
+            class="px-3 py-2 bg-yellow-500 text-black rounded-md inline-block text-sm"
+            >Login to Register a complain</a
+          >
+          <% } %>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

@@ -10,10 +10,29 @@ const userSchema = mongoose.Schema({
     password: String,
     profilepic: {
         type: String,
-        default: "default.jpg"
+        default: "default.jpg"   // Profile picture of user
     },
     posts: [
-        { type:mongoose.Schema.Types.ObjectId, ref:"post"}
-    ]
-})
-module.exports = mongoose.model('user',userSchema);
+        { type: mongoose.Schema.Types.ObjectId, ref: "post" }
+    ],
+    anonId: {
+        type: String,
+        unique: true
+    },
+    reports: {
+        problemIssued: {
+            type: Number,
+            default: 0
+        },
+        pending: {
+            type: Number,
+            default: 0
+        },
+        resolved: {
+            type: Number,
+            default: 0
+        }
+    }
+});
+
+module.exports = mongoose.model('user', userSchema);

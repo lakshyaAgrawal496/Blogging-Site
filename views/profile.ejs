@@ -1,46 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-    <div class="w-full min-h-screen bg-zinc-900 text-white p-10">
-        <div class="w-full flex justify-end">
-            <a href="/logout" class="bg-red-500 rounded-md px-3 py-2 mb-5 text-sm inline-block">LogOut</a>
+  </head>
+  <body class="bg-zinc-900 text-white">
+    <!-- Navbar -->
+    <nav class="w-full border-b border-zinc-800 bg-zinc-950/70 backdrop-blur">
+      <div
+        class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between"
+      >
+        <a href="/feed" class="text-xl font-semibold">Nagar Mitra</a>
+        <div class="flex items-center gap-3">
+          <a href="/feed" class="px-3 py-1.5 rounded-md bg-zinc-800 text-sm"
+            >Feed</a
+          >
+          <a href="/logout" class="px-3 py-1.5 rounded-md bg-red-500 text-sm"
+            >Logout</a
+          >
         </div>
-        <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-md overflow-hidden">
-                <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profilepic %>">
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-6 py-6">
+
+      <!-- User Info -->
+      <div class="flex items-start gap-3">
+        <div
+          class="w-12 h-12 rounded-md overflow-hidden border border-zinc-700"
+        >
+          <img
+            class="w-full h-full object-cover"
+            src="/images/uploads/<%= user.profilepic %>"
+            alt="Profile Picture"
+          />
+        </div>
+        <h3 class="text-3xl mb-5">
+          <span class="font-light">Hello,</span><%= user.anonId %>
+          <span class="text-sm text-zinc-400">@<%= user.anonId %></span>
+        </h3>
+      </div>
+
+      <!-- Upload Profile Pic -->
+      <form
+        action="/upload"
+        method="post"
+        enctype="multipart/form-data"
+        autocomplete="off"
+        class="mb-8"
+      >
+        <input type="file" name="image" class="text-sm text-zinc-400" />
+        <button
+          type="submit"
+          class="px-3 py-2 bg-green-500 rounded-md text-sm ml-2"
+        >
+          Upload New Picture
+        </button>
+      </form>
+
+      <!-- Reports Dashboard -->
+      <div class="w-1/3">
+        <div class="bg-zinc-800 rounded-lg p-6 border border-zinc-700">
+          <!-- Total Reports Section -->
+          <div class="mb-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-zinc-300 text-sm">Your Reports</h3>
             </div>
-            <h3 class="text-3xl mb-5"><span class="font-light">Hello,</span> <%= user.name %> </h3>
-        </div>
-            <h5 class="mb-5">You can create a new post</h5>
-        <form action="/post" method="post">
-            <textarea name="content" placeholder="What's on your mind" class="w-1/3 outline-none p-3 resize-none bg-transparent border-2 border-zinc-800 rounded-md" name="" id=""></textarea>
-            <input type="submit" class="px-3 py-2 bg-blue-500 block rounded-md mt-2 w-35 text-sm" value="Create new Post">
-        </form>
-        <div class="posts mt-20 ">
-            <h3 class="text-zinc-400">Your Posts</h3>
-            <div class="postcontainer mt-5">
-                
-             <% user.posts.reverse().forEach(function(post){ %> 
-                <div class="post w-1/3 mb-4 rounded-md bg-zinc-700 p-4 border-[1px] border-zinc-800">
-                    <h4 class="text-blue-500 mb-2">@<%= user.username %> </h4>
-                    <p class="text-sm tracking-tight "><%= post.content %>.</p>
-                    <small class="mt-2 inline-block"><%= post.likes.length %> likes </small>
-                    <div class="btns flex gap-6">
-                        <a href="/like/<%= post._id %>" class="text-blue-600">
-                            <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %>
-                        </a>
-                        <a href="/edit/<%= post._id%>" class="text-zinc-500">Edit</a>
-                    </div>
+            <div class="text-3xl font-bold text-blue-400">
+              <%= (user.reports?.problemIssued || 0) + (user.reports?.pending
+              || 0) + (user.reports?.resolved || 0) %>
+            </div>
+            <div class="text-blue-300 text-sm">Reports</div>
+          </div>
+
+          <!-- Status Breakdown -->
+          <div class="space-y-3">
+            <div
+              class="flex items-center justify-between bg-zinc-700 rounded-md px-3 py-2"
+            >
+              <span class="text-teal-400 text-sm font-medium"
+                >Problem Issued</span
+              >
+              <span class="text-white font-semibold"
+                ><%= user.reports?.problemIssued || 0 %></span
+              >
+            </div>
+            <div
+              class="flex items-center justify-between bg-zinc-700 rounded-md px-3 py-2"
+            >
+              <span class="text-orange-400 text-sm font-medium">Pending</span>
+              <span class="text-white font-semibold"
+                ><%= user.reports?.pending || 0 %></span
+              >
+            </div>
+            <div
+              class="flex items-center justify-between bg-zinc-700 rounded-md px-3 py-2"
+            >
+              <span class="text-green-400 text-sm font-medium">Resolved</span>
+              <span class="text-white font-semibold"
+                ><%= user.reports?.resolved || 0 %></span
+              >
+            </div>
+          </div>
+
+          <!-- Report Posts Links -->
+          <% if (user.posts && user.posts.some(post => post.isReport)) { %>
+          <div class="mt-4">
+            <h4 class="text-zinc-300 text-sm mb-2">Your Report Posts</h4>
+            <div class="space-y-2 max-h-32 overflow-y-auto">
+              <% user.posts.filter(post => post.isReport).reverse().forEach(function(post){ %>
+              <div class="bg-zinc-700 rounded-md px-3 py-2 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="text-zinc-300 truncate"><%= post.reportTitle %></span>
+                  <a href="/post/<%= post._id %>" class="text-blue-400 hover:text-blue-300">View</a>
                 </div>
-            <% })%>
+                <div class="text-zinc-500 text-xs mt-1">
+                  <span class="px-2 py-1 rounded text-xs
+                    <%= post.reportStatus === 'problemIssued' ? 'bg-teal-900 text-teal-300' : 
+                        post.reportStatus === 'pending' ? 'bg-orange-900 text-orange-300' : 
+                        'bg-green-900 text-green-300' %>">
+                    <%= post.reportStatus === 'problemIssued' ? 'Issued' : 
+                        post.reportStatus === 'pending' ? 'Pending' : 'Resolved' %>
+                  </span>
+                </div>
+              </div>
+              <% }) %>
             </div>
+          </div>
+          <% } %>
+          
+          <!-- Add Report Button -->
+          <div class="mt-4">
+            <a href="/create-report" class="w-full bg-yellow-500 text-black rounded-md px-3 py-2 text-sm font-medium text-center block">
+              Report an Issue
+            </a>
+          </div>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

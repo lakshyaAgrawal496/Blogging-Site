@@ -1,0 +1,118 @@
+/* Default navbar */
+.navbar {
+  background: linear-gradient(90deg, rgb(241, 234, 37), #fe4704);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Navbar when scrolled */
+.navbar.scrolled {
+  background: linear-gradient(90deg, #cc5200, #e65c00); /* darker gradient */
+  padding: 10px 24px; /* shrink height */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Logo */
+.logo img {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  transition: transform 0.4s ease, height 0.3s ease, width 0.3s ease;
+}
+
+.navbar.scrolled .logo img {
+  height: 50px;
+  width: 50px;
+}
+
+/* Navbar right */
+.navbar-right {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Buttons */
+.navbar-right button {
+  padding: 10px 18px;
+  border: none;
+  background: white;
+  color: rgb(15, 15, 15);
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.navbar.scrolled .navbar-right button {
+  color: #e65c00;
+}
+
+.navbar-right button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
+}
+
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: white;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Mobile menu styles */
+@media (max-width: 768px) {
+  .navbar-right {
+    display: none;
+    flex-direction: column;
+    background: linear-gradient(180deg, orange, #ff7f50);
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 200px;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar-right.active {
+    display: flex;
+    animation: slideDown 0.3s ease;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Animation */
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

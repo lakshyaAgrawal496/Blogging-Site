@@ -1,0 +1,111 @@
+/* =======================
+   Full Page Wrapper
+======================= */
+.report-page-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* =======================
+   Background Image
+======================= */
+.report-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Indian_City_Hall.jpg/1280px-Indian_City_Hall.jpg') no-repeat center center;
+  background-size: cover;
+  filter: brightness(0.6); /* darken image for readability */
+  z-index: -1;
+}
+
+/* =======================
+   Form Overlay
+======================= */
+.report-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 30px 25px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.55); /* semi-transparent */
+  backdrop-filter: blur(6px);
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* =======================
+   Inputs, Textarea, Select
+======================= */
+.report-container input,
+.report-container textarea,
+.report-container select {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.report-container input:focus,
+.report-container textarea:focus,
+.report-container select:focus {
+  border: 2px solid #ff9800;
+}
+
+/* =======================
+   Map Picker Styling
+======================= */
+.map-picker {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* =======================
+   Submit Button
+======================= */
+.submit-btn {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  background: #ff9800;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #e68900;
+  transform: scale(1.02);
+}
+
+/* =======================
+   Animations
+======================= */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+
+/* =======================
+   Responsive
+======================= */
+@media (max-width: 768px) {
+  .report-container {
+    margin: 20px;
+    padding: 20px;
+  }
+}

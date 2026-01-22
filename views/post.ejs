@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Post Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-zinc-900 text-white p-10">
+    <a href="/feed" class="text-blue-400 underline mb-5 inline-block"
+      >Back to Feed</a
+    >
+    <div class="max-w-xl mx-auto bg-zinc-800 p-6 rounded-md">
+      <h4 class="text-blue-500 mb-2">
+        @<%= post.user ? post.user.anonId : 'Anonymous' %>
+      </h4>
+      <p class="mb-2"><%= post.content %></p>
+      <% if (post.mediaType === "image" && post.media) { %>
+      <img src="/images/uploads/<%= post.media %>" class="rounded-md mb-2" />
+      <% } else if (post.mediaType === "video" && post.media) { %>
+      <video controls class="rounded-md mb-2">
+        <source src="/images/uploads/<%= post.media %>" type="video/mp4" />
+        Your browser does not support video.
+      </video>
+      <% } %>
+      <small class="mt-2 inline-block"><%= post.likes.length %> likes</small>
+      <div class="btns flex gap-6 mt-2">
+        <a href="/like/<%= post._id %>" class="text-blue-600">
+          <%= post.likes.indexOf(currentUserId) === -1 ? "Like" : "Unlike" %>
+        </a>
+        <a href="/edit/<%= post._id %>" class="text-zinc-500">Edit</a>
+        <a href="/delete/<%= post._id %>" class="text-red-500">Delete</a>
+      </div>
+    </div>
+  </body>
+</html>
